@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        Database Name <input id="database-name" type="text">
+        version <input id="version" type="text">
+        <button id="database-button">open Database</button>
+    </div>
+
+    <div>
+        mid <input id="media-id" type="text">
+        type <input id="media-type" type="text">
+        <button id="addMedia">Add Media</button>
+    </div>
+    <button id="showMedia">Show Media</button>
+    <script>
+
+        let dbName = document.querySelector("#database-name");
+        let version = document.querySelector("#version");
+        let openDbBtn = document.querySelector("#database-button");
+        let mid = document.querySelector("#media-id");
+        let type = document.querySelector("#media-type");
+        let addMediaBtn = document.querySelector("#addMedia");
+        let showMediaBtn = document.querySelector("#showMedia");
+
+        let db;
+     
+        openDbBtn.addEventListener("click",openDb);
+        addMediaBtn.addEventListener("click",addMedia);
+        showMediaBtn.addEventListener("click",showMedia);
+       
+
+      
+       
+      function openDb()
+      {
+        let requestDb = indexedDB.open(dbName.value,version.value);
+
+        requestDb.onupgradeneeded = function(e)
+       {
+           db = e.target.result;
+           alert("In upgrade event");
+        //    let mediaTable = db.createObjectStore("table" , {keyPath : "mid"});
+       }
+
+       requestDb.onsuccess = function(e)
+       {
+        alert("In Success Event");
+        db = e.target.result;
+
+          db.onversionchange = function(e)
+          {
+            alert("version changed!");
+            db.close();
+
+          } 
+       };
+
+       requestDb.onerror = function(e)
+       {
+                alert("In Error Event !");
+                console.log(e);
+       }
+      }
+     function addMedia()
+     {
+         let txn = db.transaction("table","readwrite");
+        let mediaStore = txn.objectStore("table");
+        mediaStore.add({mid:mid.value , type:type.value});
+       
+        txn.onerror = function(e){
+                alert("txn failed !!");
+                console.log(e);
+        }
+
+
+     }
+     function showMedia()
+     {
+        let txn = db.transaction("table" , "readonly");
+            let mediaStore = txn.objectStore("table");
+
+            let cursorObject = mediaStore.openCursor();
+
+            cursorObject.onsuccess = function(e){                
+                let cursor = cursorObject.result;
+                if(cursor){
+                    console.log(cursor.value);
+                    cursor.continue();
+                }
+            }
+     }
+
+    </script>
+</body>
+</html>

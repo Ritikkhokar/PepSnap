@@ -1,0 +1,125 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.vedioContainer{
+background-color: black;
+height: 100vh;
+width: 100vw;
+overflow: hidden;
+}
+
+video {
+    height: 100%;
+    width: 100%;
+}
+.media-controls{
+    height: 364px;
+    width: 143px;
+    color: wheat;
+    position: absolute;
+    top: 206px;
+    right: 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#record-vedio{
+    height: 101px;
+    width: 101px;
+    border: 8px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-vedio-animate{
+    height: 70%;
+    background-color: red;
+    width: 70%;
+    border-radius: 50%;
+   
+}
+.record-animate{
+    animation: scaleUpDown 1s infinite;
+}
+.capture-animate{
+    animation: scaleUpDown 1s 1;
+}
+#capture-photo{
+    height: 101px;
+    width: 101px;
+    border: 8px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.capture-photo-animate{
+    height: 70%;
+    background-color:white;
+    width: 70%;
+    border-radius: 50%;
+   
+}
+.media-controls div div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 37px;
+}
+
+@keyframes scaleUpDown {
+    0%{
+      transform: scale(1);
+    }
+    50%{
+      transform: scale(0.9);
+    }
+    100%{
+      transform: scale(1);
+    }
+}
+.zoomInOut{
+    
+        height: 134px;
+        width: 101px;
+        border: 8px solid;
+        border-radius: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+   
+}
+.zoomIn{
+
+}
+
+.zoomOut{
+
+}
+ #show-media{
+    height: 101px;
+    width: 101px;
+    border: 8px solid hotpink;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 626px;
+    right: 104px;
+
+}
+#show-media i{
+    font-size: 50px;
+    color: ivory;
+}
